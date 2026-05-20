@@ -42,7 +42,7 @@ Delivery Modes
 | LIVE WIRE | Today's date | Detection/triage drills where date is irrelevant |
 | NAMED PIPE | Original PCAP date | Single machine, local Wireshark only |
 
-Sensor Integration
+# Sensor Integration
 # Wireshark
  * powershellwireshark -k -i \\.\pipe\SocksPCAPReplay
 
