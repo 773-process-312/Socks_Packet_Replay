@@ -36,10 +36,11 @@ SocksPCAPPipeline.exe --nas \\NAS\pcaps --export mission1.txt
 SocksPCAPPipeline.exe --playlist mission1.txt --stream
 
 Delivery Modes
-|Mode|--|Timestamps on Sensor|--|Use When|
-|REMOTE STREAM|--|Original PCAP date|--| Hunt missions, time-correlation exercises| 
-|LIVE WIRE|--|Today's date|--|Detection/triage drills where date is irrelevant|
-|NAMED PIPE|--|Original PCAP date|--|Single machine, local Wireshark only|
+|Mode|Timestamps on Sensor|Use When|
+| ----- | ------------ | ---------- |
+| REMOTE STREAM | Original PCAP date | Hunt missions, time-correlation exercises | 
+| LIVE WIRE | Today's date | Detection/triage drills where date is irrelevant |
+| NAMED PIPE | Original PCAP date | Single machine, local Wireshark only |
 
 Sensor Integration
 # Wireshark
