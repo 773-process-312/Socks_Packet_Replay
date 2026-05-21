@@ -44,3 +44,57 @@ Run `SocksPCAPReplay.exe` as Administrator.
 ### Analyst Machine (Receiver)
 
 Open a command prompt and run the receiver, pointing it at the engineer machine:
+SocksPCAPReceiver.exe --server <engineer_machine_IP>
+
+Then open Wireshark using the named pipe. The recommended method is to add the pipe directly in the Wireshark GUI, but you can also launch it from a second command prompt:
+wireshark -k -i \.\pipe\SocksPCAPReplay
+
+---
+
+## NAS Replay Pipeline
+
+The pipeline tool lets you scan a NAS share, sort captures by actual capture date, and preview a manifest before streaming.
+
+Scan a NAS share and preview what is available:
+SocksPCAPPipeline.exe --nas \NAS\share\pcaps
+
+Scan and begin streaming immediately:
+SocksPCAPPipeline.exe --nas \NAS\share\pcaps --stream
+
+Filter by date range and keyword:
+SocksPCAPPipeline.exe --nas Z:\pcaps --stream --from 2023-01-01 --to 2023-12-31 --filter ransomware
+
+Save a playlist for a scheduled exercise, then replay it later:
+SocksPCAPPipeline.exe --nas \NAS\pcaps --export mission1.txt
+SocksPCAPPipeline.exe --playlist mission1.txt --stream
+
+---
+
+## Sensor Integration
+
+### Wireshark
+wireshark -k -i \.\pipe\SocksPCAPReplay
+
+### tcpdump / tshark
+tcpdump -r /tmp/socks_pcap_pipe
+tshark  -i /tmp/socks_pcap_pipe
+
+### Security Onion
+python3 socks_pcap_receiver.py --server <engineer_IP> --output /tmp/rx.pcap
+sudo so-import-pcap /tmp/rx.pcap
+
+### Malcolm
+python3 socks_pcap_receiver.py --server <engineer_IP> --output /tmp/rx.pcap
+
+Then upload `/tmp/rx.pcap` through the Malcolm PCAP ingest UI.
+
+### Zeek / Suricata
+python3 socks_pcap_receiver.py --server <engineer_IP>
+zeek     -r /tmp/socks_pcap_pipe
+suricata -r /tmp/socks_pcap_pipe -l /tmp/suricata-logs/
+
+---
+
+## License
+
+Free to use. Please provide attribution or a link back to this repository.
